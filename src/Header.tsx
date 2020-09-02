@@ -2,12 +2,8 @@ import React from 'react';
 import "./header.scss"
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
-
-
 export const Header = () => {
     return (
         <section>
