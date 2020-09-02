@@ -1,8 +1,10 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 
+
 interface Book {
     title: string;
     author: string;
+    id: number;
 }
 export function BooksList() {
     const [books, setBooks] = useState<Book[]>([])
@@ -15,6 +17,8 @@ export function BooksList() {
             .then(json => setBooks(json.books))
             .then(() => { setMode("Ready") })
     }, [search])
+
+    
     const updateSearch = (event: ChangeEvent<HTMLInputElement>) => {
         const newSearch = event.target.value
         setSearch(newSearch);
@@ -25,6 +29,7 @@ export function BooksList() {
             <label>
                 <input type="text" value={search} onChange={updateSearch} placeholder="Search..."></input>
             </label>
+
             {mode === "Ready" && <SearchResults books={books}></SearchResults>}
             {mode === "Loading" && <p>Loading</p>}
         </div>
@@ -35,17 +40,19 @@ interface BookProps {
     book: Book;
 }
 
-const Book = ({ book }: BookProps) => {
-    return <li>{book.author}, {book.title}</li>
+
+const Book = (props: BookProps) => {
+    return <li><a href ={`http://localhost:3000/books/${props.book.id}`}>{props.book.author}, {props.book.title} </a></li>
 };
 
-
+// const Book = ({ book }: BookProps) => {
+//     return <li>{book.author}, {book.title}</li>
+// };
 
 
 interface SearchResultsProps {
     books: Book[];
 };
-
 function SearchResults(props: SearchResultsProps) {
     const bookList = props.books.map((book) => {
         return <Book book={book}></Book>
@@ -64,3 +71,4 @@ function SearchResults(props: SearchResultsProps) {
         </section>
     )
 }
+

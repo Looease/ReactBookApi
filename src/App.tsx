@@ -1,13 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 import './header.scss';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import {
-  BrowserRouter as Router, Switch, Route, Link, useParams
-} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, useParams} from "react-router-dom";
 import {BooksList} from "./Bookslist"
+import {IndividualBook} from "./BookID"
 
 
 export const App = () => {
@@ -22,7 +20,7 @@ export const App = () => {
           <BooksList />
         </Route>
         <Route path="/books/:id">
-          <ManageBooks />
+          <IndividualBook />
         </Route>
         <Route path="/users">
           <Members />
@@ -39,10 +37,6 @@ function HomePage() {
   return <h2>Home</h2>;
 }
 
-function ManageBooks() {
-  let { id } = useParams();
-return <h2>Manage Books {id}</h2>;
-}
 
 function Members() {
   return <h2>Members</h2>;
@@ -50,7 +44,6 @@ function Members() {
 function ManageMembers() {
   return <h2>Manage Members</h2>;
 }
-
 
 export default App;
 

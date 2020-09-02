@@ -1,14 +1,13 @@
 import React from 'react';
 import "./header.scss"
 import {
-    BrowserRouter as Router,
     Link
 } from "react-router-dom";
 export const Header = () => {
     return (
         <section>
            
-                <div className="navbar">
+                <nav className="navbar">
                     <Link to="/">Home</Link>
                     <div className="dropdown">
                         <button className="dropbtn" onClick={() => { }}>Books
@@ -27,7 +26,7 @@ export const Header = () => {
                             <Link to="/users">List of Members</Link>
                         </div>
                     </div>
-                </div>
+                </nav>
  
         </section>
     )
