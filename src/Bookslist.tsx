@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 
 interface Book {
@@ -65,6 +66,7 @@ function SearchResults(props: SearchResultsProps) {
     return (
         <section>
             <h2>List of Books</h2>
+            <Link to="/add/book"><button>Add Books</button></Link>           
             <ul>
                 {bookList}
             </ul>

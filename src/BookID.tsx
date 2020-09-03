@@ -5,16 +5,14 @@ interface BookItem{
     title: string;
     author: string;
     id: number;
-    published: number;
+    published_date: number;
     isbn: number;
-    copies: number;
+    cover_image_url: any;
 
 }
 
-
-
 export function IndividualBook() {
-    const [item, setItem] = useState<BookItem>({title: '', author: '', id: 0, published: 0, isbn: 0, copies: 0})
+    const [item, setItem] = useState<BookItem>({title: '', author: '', id: 0, published_date: 0, isbn: 0, cover_image_url: ''})
     useEffect(() => {
         fetch(`http://localhost:3001/books/${id}`)
             .then(response => response.json())
@@ -22,7 +20,15 @@ export function IndividualBook() {
     }, [])
     let { id } = useParams();
   return <section>
-      <h3>{item.title}</h3>
+      <h1>{item.title}</h1>
+      <h3>{item.author}</h3>
+      <ul>
+          <li>Id = {item.id}</li>
+          <li> Published date ={item.published_date}</li>
+          <li>ISBN = {item.isbn}</li>
+          <li><img src={item.cover_image_url} alt="Book cover"/></li>
+      </ul>
+      
         <div>{}</div>
       </section>;
   }
