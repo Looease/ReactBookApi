@@ -2,20 +2,19 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 
-interface Book {
-    title: string;
-    author: string;
-    id: number;
+interface Member{
+    name: string;
+    email: string;
 }
-export function BooksList() {
-    const [books, setBooks] = useState<Book[]>([])
+export function MembersList() {
+    const [members, setMember] = useState<Member[]>([])
     const [search, setSearch] = useState("")
     const [mode, setMode] = useState("Loading...")
 
     useEffect(() => {
         setMode("Loading...")
-        fetch(`http://localhost:3001/books?search=${search}`).then(response => response.json())
-            .then(json => setBooks(json.books))
+        fetch(`http://localhost:3001/members?search=${search}`).then(response => response.json())
+            .then(json => setMember(json.members))
             .then(() => { setMode("Ready") })
     }, [search])
 
@@ -26,24 +25,24 @@ export function BooksList() {
     }
     return (
         <div>
-            <h1>Books</h1>
+            <h1>Members</h1>
             <label>
                 <input type="text" value={search} onChange={updateSearch} placeholder="Search..."></input>
             </label>
 
-            {mode === "Ready" && <SearchResults books={books}></SearchResults>}
+            {mode === "Ready" && <SearchResults members={members}></SearchResults>}
             {mode === "Loading" && <p>Loading</p>}
         </div>
 
     );
 }
-interface BookProps {
-    book: Book;
+interface MemberProps {
+    member: Member;
 }
 
 
-const Book = (props: BookProps) => {
-    return <li><Link to={`/books/${props.book.id}`}>{props.book.author}, {props.book.title} </Link></li>
+const MemberListItem = (props: MemberProps) => {
+    return <li><Link to={`/members/${props.member.name}`}>{props.member.email}</Link></li>
 };
 
 // const Book = ({ book }: BookProps) => {
@@ -52,13 +51,13 @@ const Book = (props: BookProps) => {
 
 
 interface SearchResultsProps {
-    books: Book[];
+    members: Member[];
 };
 function SearchResults(props: SearchResultsProps) {
-    const bookList = props.books.map((book) => {
-        return <Book book={book}></Book>
+    const memberList = props.members.map((member) => {
+        return <MemberListItem member={member}></MemberListItem>
     })
-    if (props.books.length === 0) {
+    if (props.members.length === 0) {
         return (
             <p>No search results</p>
         )
@@ -66,9 +65,9 @@ function SearchResults(props: SearchResultsProps) {
     return (
         <section>
             <h2>List of Books</h2>
-            <Link to="/add/book"><button>Add Books</button></Link>           
+            <Link to="/add/member"><button>Add Members</button></Link>           
             <ul>
-                {bookList}
+                {memberList}
             </ul>
         </section>
     )

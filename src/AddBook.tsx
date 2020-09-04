@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import {BrowserRouter as  Switch, Route, Link, useParams} from "react-router-dom";
+import {BrowserRouter as  Switch, Route, Link, useParams, useHistory} from "react-router-dom";
 
 
 interface AddBook{
@@ -16,6 +16,7 @@ export function AddBook() {
     const [publishDate, setPublishedDate] = useState ("");
     const [coverImageUrl, setCoverImageUrl] = useState ("");
     const [isbn, searchIsbn] =useState("");
+    const history = useHistory();
 
     const data = {
                 title: title, 
@@ -35,8 +36,6 @@ export function AddBook() {
                     setCoverImageUrl(json.coverImageUrl)
                 })
         }
-
-
    const submitForm = (event: FormEvent) =>{
     event.preventDefault()
     fetch("http://localhost:3001/books/new", {
@@ -44,19 +43,19 @@ export function AddBook() {
         body: JSON.stringify(data),
         headers: {"Content-Type": "application/json"}
     })
+    .then (() => history.push("/books"))
    }
     return (
       <section>
         <h1>Add Book</h1>
 
         <form onSubmit={setSearch}>
-        <label htmlFor="isbn">Search by isbn</label>
+        <label htmlFor="isbn">Lookup by ISBN</label>
         <input type="text" id="isbn" onChange={event => searchIsbn(event.target.value)}></input>
         <button onClick={setSearch}>Search</button>
         </form>
-  
         <form onSubmit={submitForm} >
-          Add Book
+            Or enter manually
          
           <label htmlFor="title">Title</label>          
           <input type="text" id="title" value={title} onChange={event => setTitle(event.target.value)}></input>

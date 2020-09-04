@@ -6,8 +6,10 @@ import { Footer } from './Footer';
 import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
 import { BooksList } from "./Bookslist"
 import { IndividualBook } from "./BookID"
-import  {AddBook} from "./AddBook"
-
+import {AddBook} from "./AddBook"
+import {AddMember} from "./AddMember"
+import {MembersList} from "./Memberlist"
+import {IndividualMember} from "./MemberID"
 
 export const App = () => {
   return (
@@ -26,12 +28,14 @@ export const App = () => {
         <Route exact path="/add/book">
           <AddBook />
         </Route>
-
-        <Route path="/users">
-          <Members />
+        <Route exact path="/members">
+          <MembersList />
         </Route>
-        <Route path="/users/:id">
-          <ManageMembers />
+        <Route exact path="/members/:id">
+          <IndividualMember />
+        </Route>
+        <Route exact path="/add/member">
+          <AddMember />
         </Route>
       </Switch>
       <Footer></Footer>
@@ -43,24 +47,6 @@ function HomePage() {
 }
 
 
-interface AddBook {
-  title: string;
-  author: string;
-  id: number;
-  published_date: number;
-  isbn: number;
-  cover_image_url: any;
-}
-
-
-
-
-function Members() {
-  return <h2>Members</h2>;
-}
-function ManageMembers() {
-  return <h2>Manage Members</h2>;
-}
 
 export default App;
 
